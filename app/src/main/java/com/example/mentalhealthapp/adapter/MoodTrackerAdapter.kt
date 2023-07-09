@@ -32,7 +32,7 @@ class MoodTrackerAdapter(private val myContext: Context) :BaseAdapter() {
         val ivMood = rootView.findViewById<ImageView>(R.id.ivMood)
         val tvDate = rootView.findViewById<TextView>(R.id.tvDate)
         tvDate.text = (position+1).toString()
-        ivMood.setImageDrawable(ContextCompat.getDrawable(myContext,R.drawable.ic_happy))
+        ivMood.setImageDrawable(ContextCompat.getDrawable(myContext, R.drawable.blankmood))
 
         return rootView
 
