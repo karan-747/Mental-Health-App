@@ -62,6 +62,9 @@ object FirebaseRepository:FirebaseInterface {
     override fun getRecordLiveData(): LiveData<ArrayList<MoodItem>> {
         return modelRef.getRecordLiveData()
     }
+    suspend fun deleteprevRecord(){
+        modelRef.deletePreviousMonthRecord()
+    }
 
 
 }

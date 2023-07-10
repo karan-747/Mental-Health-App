@@ -15,4 +15,7 @@ class MoodTrackVM: ViewModel() {
     fun getMoodRecordLiveData(): LiveData<ArrayList<MoodItem>> {
         return repoRef.getRecordLiveData()
     }
+    suspend fun deleteprevRecord(){
+        repoRef.deleteprevRecord()
+    }
 }

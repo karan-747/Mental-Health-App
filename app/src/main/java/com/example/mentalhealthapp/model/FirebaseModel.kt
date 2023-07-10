@@ -225,4 +225,33 @@ object FirebaseModel {
         val resultPair =  Pair(false ,null)
         return resultPair
     }
+
+    suspend  fun deletePreviousMonthRecord() {
+
+        val UID = firebaseAuth.currentUser?.uid
+        val year= calender.get( Calendar.YEAR)
+        val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())
+        val month = monthFormat.format(calender.time)
+        val refPath = "/mental_health_app/UserRecords/$UID/MoodRecords/$month$year"
+        val recordRef = Firebase.firestore.collection(refPath)
+        val recordQuery = recordRef
+            .whereEqualTo("year" ,year)
+            .whereEqualTo("month" ,month)
+            .get().await()
+
+        if (recordQuery.documents.isNotEmpty()){
+
+            try {
+                for(doc in recordQuery.documents){
+
+                    recordRef.document(doc.id).delete().await()
+                }
+
+            }
+            catch (_:Exception){
+
+            }
+        }
+
+    }
 }

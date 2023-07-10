@@ -18,6 +18,9 @@ import com.example.mentalhealthapp.databinding.FragmentMoodTrackBinding
 import com.example.mentalhealthapp.viewmodels.MoodTrackVM
 import com.google.gson.Gson
 import com.google.type.DateTime
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -52,7 +55,11 @@ class MoodTrackFragment(val reset:()->Unit) : Fragment(R.layout.fragment_mood_tr
         val month = monthFormat.format(calendar.time)
         binding.tvDate.text = "$month, $year"
 
-
+        if(calendar.get(Calendar.DAY_OF_MONTH) == 7){
+            CoroutineScope(Dispatchers.IO).async {
+                viewModel.deleteprevRecord()
+            }
+        }
         return  binding.root
     }
 
