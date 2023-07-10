@@ -16,4 +16,7 @@ interface FirebaseInterface {
     fun checkUserStatus(moveToHome: () -> Unit)
 
     suspend fun addUserMoodItem(userMoodItem: MoodItem) :Pair<Boolean,String>
+    suspend fun getTodaysMood():Pair<Boolean,MoodItem?>
+
+    suspend fun updateUserMoodItem(updateMap: HashMap<String,Any>,oldMoodItem: MoodItem):Pair<Boolean,String>
 }

@@ -10,4 +10,10 @@ class MoodEntryFragVM: ViewModel(){
     suspend fun updateUserMood(userMoodItem: MoodItem):Pair<Boolean,String>{
         return repoRef.addUserMoodItem(userMoodItem)
     }
+    suspend fun getTodayMoodEntry(): Pair<Boolean, MoodItem?> {
+        return repoRef.getTodaysMood()
+    }
+    suspend fun updateUserMoodItem(updateMap: HashMap<String,Any>,oldMoodItem: MoodItem):Pair<Boolean,String>{
+        return repoRef.updateUserMoodItem(updateMap,oldMoodItem)
+    }
 }

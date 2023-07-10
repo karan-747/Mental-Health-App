@@ -47,5 +47,10 @@ object FirebaseRepository:FirebaseInterface {
 
     }
 
-
+    override suspend fun getTodaysMood():Pair<Boolean,MoodItem?>{
+        return modelRef.getTodaysMood()
+    }
+    override suspend fun updateUserMoodItem(updateMap: HashMap<String,Any>,oldMoodItem: MoodItem):Pair<Boolean,String>{
+        return modelRef.updateUserMoodItem(updateMap,oldMoodItem)
+    }
 }

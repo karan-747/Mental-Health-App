@@ -1,12 +1,17 @@
 package com.example.mentalhealthapp.dataclasses
 
-import java.time.Month
-
 data class MoodItem(
-    val date:Int,
-    val day:String,
-    val month:String,
-    val year :Int,
-    val isEmpty:Boolean,
-    val moodDescription: MoodDescription
+    val date:Int=-1,
+    val day:String ="",
+    val empty:Boolean=false,
+    val month:String = "",
+    val overAllMood:String = "",
+    val q1Ans:String="",
+    val q2Ans:String="",
+    val q3Ans:String="",
+    val q4Ans:String="",
+    val q5Ans:String="",
+    val year :Int =-1
+
+    //val moodDescription: MoodDescription
 )
