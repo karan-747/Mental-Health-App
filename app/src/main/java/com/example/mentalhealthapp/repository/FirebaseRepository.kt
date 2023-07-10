@@ -1,5 +1,6 @@
 package com.example.mentalhealthapp.repository
 
+import com.example.mentalhealthapp.dataclasses.MoodItem
 import com.example.mentalhealthapp.model.FirebaseInterface
 import com.example.mentalhealthapp.model.FirebaseModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -39,6 +40,11 @@ object FirebaseRepository:FirebaseInterface {
 
     override fun checkUserStatus(moveToHome: () -> Unit) {
         modelRef.checkUserStatus(moveToHome)
+    }
+
+    override suspend fun addUserMoodItem(userMoodItem: MoodItem): Pair<Boolean, String> {
+        return modelRef.addUserMoodItem(userMoodItem)
+
     }
 
 

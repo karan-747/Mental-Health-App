@@ -1,5 +1,6 @@
 package com.example.mentalhealthapp.model
 
+import com.example.mentalhealthapp.dataclasses.MoodItem
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 interface FirebaseInterface {
@@ -13,4 +14,6 @@ interface FirebaseInterface {
 
     suspend fun signUpWithGoogle(account: GoogleSignInAccount):Pair<Boolean,String>
     fun checkUserStatus(moveToHome: () -> Unit)
+
+    suspend fun addUserMoodItem(userMoodItem: MoodItem) :Pair<Boolean,String>
 }

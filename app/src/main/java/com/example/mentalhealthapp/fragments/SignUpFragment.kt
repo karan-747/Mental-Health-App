@@ -1,4 +1,4 @@
-package com.example.mentalhealthapp
+package com.example.mentalhealthapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.mentalhealthapp.databinding.FragmentLoginBinding
+import com.example.mentalhealthapp.R
+import com.example.mentalhealthapp.databinding.FragmentSignUpBinding
 import com.example.mentalhealthapp.viewmodels.LoginSignUpVM
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -20,49 +21,34 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private lateinit var binding : FragmentLoginBinding
-    private lateinit var viewModel: LoginSignUpVM
+class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
+    private lateinit var  binding :FragmentSignUpBinding
+    private  lateinit var  viewModel :LoginSignUpVM
     private val REQUEST_CODE_SIGN_IN = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
          super.onCreateView(inflater, container, savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login,container,false)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up,container,false)
         viewModel = ViewModelProvider(this)[LoginSignUpVM::class.java]
 
-        binding.btnLogin.setOnClickListener {
-
-            if(checkEntries()){
-                loginUser()
-                //navigateToHome()
+        binding.btnSignUp.setOnClickListener {
+            if (checkEntries()) {
+                signUpUser()
             }
-
         }
 
-        binding.tvSigunUp.setOnClickListener(){
-            navigateToSignUpFragment()
-        }
 
-        binding.cvLoginWithGoogle.setOnClickListener {
+        binding.cvSignUpWithGoogle.setOnClickListener {
             signInUserWithGoogle()
         }
 
-
         return binding.root
-
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.checkLoginStatus(){
-            binding.root.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        }
     }
 
     private fun signInUserWithGoogle() {
@@ -72,10 +58,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         val signInClient = GoogleSignIn.getClient( requireContext() ,options)
         signInClient.signInIntent.also {
+
             startActivityForResult(it,REQUEST_CODE_SIGN_IN)
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -86,7 +72,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
     }
-
     private fun googleAuthForFireBase(account: GoogleSignInAccount) {
 
 
@@ -107,42 +92,46 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    private fun loginUser(){
-        val email = binding.etLoginEmail.text.toString()
-        val password = binding.etLoginPassword.text.toString()
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = viewModel.logInWithEmailAndPassword(email, password)
-            if(result.first){
-                withContext(Dispatchers.Main){
-                    Toast.makeText(requireContext(),"Logged In...",Toast.LENGTH_SHORT).show()
-                    navigateToHome()
-                }
-            }else{
-                withContext(Dispatchers.Main){
-                    Toast.makeText(requireContext(),result.second,Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun signUpUser() {
+        val email = binding.etSignUpEmail.text.toString()
+        val password = binding.etSignUpPassword.text.toString()
+       CoroutineScope(Dispatchers.IO).launch {
+           val result = viewModel.signUpWithEmailAndPassword(email, password)
+           if(result.first){
+               withContext(Dispatchers.Main){
+                   Toast.makeText(requireContext(),"Sign Up successful...",Toast.LENGTH_SHORT).show()
+                   navigateToHome()
+               }
+           }else{
+               withContext(Dispatchers.Main){
+                   Toast.makeText(requireContext(),result.second,Toast.LENGTH_SHORT).show()
+               }
+           }
 
-        }
-
+       }
     }
 
-    private fun navigateToSignUpFragment() {
-        binding.root.findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
-    }
-
-    private fun navigateToHome() {
-        binding.root.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+    private fun navigateToHome (){
+        binding.root.findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
     }
 
     private fun checkEntries():Boolean{
-        val email = binding.etLoginEmail.text.toString()
-        val password = binding.etLoginPassword.text.toString()
+        val email = binding.etSignUpEmail.text.toString()
+        val password = binding.etSignUpPassword.text.toString()
+        val passwordConfirmed = binding.etConfirmedPassword.text.toString()
 
-        if(email.isNotEmpty() && password.isNotEmpty()){
-            return true
+        if(email.isNotEmpty() && password.isNotEmpty() && passwordConfirmed.isNotEmpty()){
+            if(password != passwordConfirmed){
+                Toast.makeText(requireContext(),"Enter Credentials...",Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else{
+                return true
+
+            }
         }
-        Toast.makeText(requireContext(),"Enter credentials...",Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(),"Enter Credentials...",Toast.LENGTH_SHORT).show()
         return false
+
     }
 }

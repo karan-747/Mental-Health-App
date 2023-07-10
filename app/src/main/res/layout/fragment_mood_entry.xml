@@ -8,13 +8,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MoodEntryFragment">
+    tools:context=".fragments.MoodEntryFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvHappy"
         android:layout_width="60dp"
         android:layout_height="80dp"
         app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvSad"
         app:layout_constraintEnd_toStartOf="@+id/cvNeutral"
         app:layout_constraintHorizontal_bias="0.5"
@@ -56,6 +58,8 @@
         android:layout_width="60dp"
         android:layout_height="80dp"
         app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvSad"
         app:layout_constraintEnd_toStartOf="@+id/guideline29"
         app:layout_constraintHorizontal_bias="0.5"
@@ -96,6 +100,8 @@
         android:layout_width="60dp"
         android:layout_height="80dp"
         app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvSad"
         app:layout_constraintEnd_toStartOf="@+id/cvAngry"
         app:layout_constraintHorizontal_bias="0.5"
@@ -136,6 +142,8 @@
         android:layout_width="60dp"
         android:layout_height="80dp"
         app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/cvSad"
         app:layout_constraintEnd_toStartOf="@+id/cvSad"
         app:layout_constraintHorizontal_bias="0.5"
@@ -188,6 +196,8 @@
         android:layout_width="60dp"
         android:layout_height="80dp"
         app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="5dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout11"
         app:layout_constraintEnd_toStartOf="@+id/cvAnxious"
         app:layout_constraintHorizontal_bias="0.5"

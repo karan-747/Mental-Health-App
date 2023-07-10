@@ -3,10 +3,10 @@ package com.example.mentalhealthapp.dataclasses
 import java.time.Month
 
 data class MoodItem(
-    val date:String,
+    val date:Int,
     val day:String,
     val month:String,
-    val year :String,
+    val year :Int,
     val isEmpty:Boolean,
     val moodDescription: MoodDescription
 )

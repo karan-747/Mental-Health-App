@@ -1,7 +1,8 @@
-package com.example.mentalhealthapp
+package com.example.mentalhealthapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.mentalhealthapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
