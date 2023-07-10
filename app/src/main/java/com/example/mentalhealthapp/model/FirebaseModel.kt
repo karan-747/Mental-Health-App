@@ -69,4 +69,5 @@ object FirebaseModel {
             moveToHome.invoke()
         }
     }
+
 }

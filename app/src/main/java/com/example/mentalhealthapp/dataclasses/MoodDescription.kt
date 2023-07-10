@@ -7,5 +7,5 @@ data class MoodDescription(
     val q4Ans:String="",
     val q5Ans:String="",
 
-    val overAllMood:Int
+    val overAllMood:String
 )
