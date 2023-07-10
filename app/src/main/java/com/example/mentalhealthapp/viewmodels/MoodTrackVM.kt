@@ -15,5 +15,4 @@ class MoodTrackVM: ViewModel() {
     fun getMoodRecordLiveData(): LiveData<ArrayList<MoodItem>> {
         return repoRef.getRecordLiveData()
     }
-
 }

@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_homeFragment_to_moodEntryFragment"
             app:destination="@id/moodEntryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_moodInfoFragment"
+            app:destination="@id/moodInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/moodEntryFragment"
@@ -50,4 +53,8 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/moodInfoFragment"
+        android:name="com.example.mentalhealthapp.fragments.MoodInfoFragment"
+        android:label="MoodInfoFragment" />
 </navigation>

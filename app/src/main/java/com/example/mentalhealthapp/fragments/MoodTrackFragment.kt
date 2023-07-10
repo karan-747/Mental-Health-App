@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.mentalhealthapp.R
 import com.example.mentalhealthapp.adapter.MoodTrackerAdapter
 import com.example.mentalhealthapp.databinding.FragmentMoodTrackBinding
 import com.example.mentalhealthapp.viewmodels.MoodTrackVM
+import com.google.gson.Gson
 import com.google.type.DateTime
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -36,7 +38,12 @@ class MoodTrackFragment : Fragment(R.layout.fragment_mood_track) {
         binding = DataBindingUtil.inflate(inflater , R.layout.fragment_mood_track,container,false)
         viewModel = ViewModelProvider(this)[MoodTrackVM::class.java]
         viewModel.initDatabase()
-         myAdapter= MoodTrackerAdapter(requireContext())
+         myAdapter= MoodTrackerAdapter(requireContext()){
+
+             val bundle =  Bundle()
+             bundle.putStringArray("RECORD" , arrayOf( "yess",Gson().toJson(it)))
+             binding.root.findNavController().navigate(R.id.action_homeFragment_to_moodInfoFragment,bundle)
+         }
         binding.gridView.adapter = myAdapter
 
         val year= calendar.get( Calendar.YEAR)
@@ -103,5 +110,6 @@ class MoodTrackFragment : Fragment(R.layout.fragment_mood_track) {
         viewModel.getMoodRecordLiveData().observe(viewLifecycleOwner, Observer {
             myAdapter.updateList(it,getStartPosition(),getEndPosition())
         })
+
     }
 }

@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import com.example.mentalhealthapp.R
 import com.example.mentalhealthapp.dataclasses.MoodItem
 
-class MoodTrackerAdapter(private val myContext: Context) :BaseAdapter() {
+class MoodTrackerAdapter(private val myContext: Context,val openMoodItem: (MoodItem)->Unit) :BaseAdapter() {
     private val TAG ="MoodTrackerAdapter"
 
     private val myRecordsList = ArrayList<MoodItem>()
@@ -68,7 +68,9 @@ class MoodTrackerAdapter(private val myContext: Context) :BaseAdapter() {
                             ivMood.setImageDrawable(ContextCompat.getDrawable(myContext, R.drawable.neutral))
                         }
                     }
-
+                    rootView.setOnClickListener {
+                        openMoodItem(moodItem)
+                    }
                     Log.d(TAG,"FOUND $count")
                     return rootView
                 }
@@ -83,12 +85,7 @@ class MoodTrackerAdapter(private val myContext: Context) :BaseAdapter() {
         }
 
 
-
-
-
-
         return rootView
-
     }
 
     fun updateList(moodItems:ArrayList<MoodItem>,start:Int,end:Int){

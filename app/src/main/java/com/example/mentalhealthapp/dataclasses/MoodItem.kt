@@ -6,11 +6,13 @@ data class MoodItem(
     val empty:Boolean=false,
     val month:String = "",
     val overAllMood:String = "",
+
     val q1Ans:String="",
     val q2Ans:String="",
     val q3Ans:String="",
     val q4Ans:String="",
     val q5Ans:String="",
+
     val year :Int =-1
 
     //val moodDescription: MoodDescription
