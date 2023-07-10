@@ -23,7 +23,7 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class MoodTrackFragment : Fragment(R.layout.fragment_mood_track) {
+class MoodTrackFragment(val reset:()->Unit) : Fragment(R.layout.fragment_mood_track) {
 
     private val TAG = "MoodTrackFragment"
     private lateinit var  binding: FragmentMoodTrackBinding
@@ -42,6 +42,7 @@ class MoodTrackFragment : Fragment(R.layout.fragment_mood_track) {
 
              val bundle =  Bundle()
              bundle.putStringArray("RECORD" , arrayOf( "yess",Gson().toJson(it)))
+             reset.invoke()
              binding.root.findNavController().navigate(R.id.action_homeFragment_to_moodInfoFragment,bundle)
          }
         binding.gridView.adapter = myAdapter

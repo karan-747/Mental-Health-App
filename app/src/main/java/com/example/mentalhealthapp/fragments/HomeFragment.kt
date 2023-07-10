@@ -48,7 +48,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 "Mood Tracker"->{
                     childFragmentManager.beginTransaction().apply {
-                        replace(R.id.flBottomNav, MoodTrackFragment())
+                        replace(R.id.flBottomNav, MoodTrackFragment(){
+                            resetSelection()
+                        })
                         commit()
 
                     }
@@ -79,6 +81,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             replace(R.id.flBottomNav, UserHomeFragment())
             commit()
         }
+    }
+
+    private fun resetSelection(){
+        binding.bottomNavigationView.selectedItemId = R.id.Home
     }
 
 }
