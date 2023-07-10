@@ -1,5 +1,6 @@
 package com.example.mentalhealthapp.model
 
+import androidx.lifecycle.LiveData
 import com.example.mentalhealthapp.dataclasses.MoodItem
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
@@ -19,4 +20,11 @@ interface FirebaseInterface {
     suspend fun getTodaysMood():Pair<Boolean,MoodItem?>
 
     suspend fun updateUserMoodItem(updateMap: HashMap<String,Any>,oldMoodItem: MoodItem):Pair<Boolean,String>
+
+    fun getTheDatabase():Unit
+
+    fun getRecordLiveData(): LiveData<ArrayList<MoodItem>>
+
+
+
 }

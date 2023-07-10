@@ -1,5 +1,6 @@
 package com.example.mentalhealthapp.repository
 
+import androidx.lifecycle.LiveData
 import com.example.mentalhealthapp.dataclasses.MoodItem
 import com.example.mentalhealthapp.model.FirebaseInterface
 import com.example.mentalhealthapp.model.FirebaseModel
@@ -53,4 +54,14 @@ object FirebaseRepository:FirebaseInterface {
     override suspend fun updateUserMoodItem(updateMap: HashMap<String,Any>,oldMoodItem: MoodItem):Pair<Boolean,String>{
         return modelRef.updateUserMoodItem(updateMap,oldMoodItem)
     }
+
+    override fun getTheDatabase() {
+         modelRef.getTheDatabase()
+    }
+
+    override fun getRecordLiveData(): LiveData<ArrayList<MoodItem>> {
+        return modelRef.getRecordLiveData()
+    }
+
+
 }

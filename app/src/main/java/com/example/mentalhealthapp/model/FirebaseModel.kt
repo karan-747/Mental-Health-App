@@ -1,9 +1,13 @@
 package com.example.mentalhealthapp.model
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.mentalhealthapp.dataclasses.MoodItem
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -11,18 +15,18 @@ import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.system.exitProcess
 
 object FirebaseModel {
 
     private var firebaseAuth =FirebaseAuth.getInstance()
     private var user = firebaseAuth.currentUser
     private  val calender=Calendar.getInstance()
+    private var recordLiveData = MutableLiveData<ArrayList <MoodItem> >()
 
-
-
-
-
-
+    private val TAG = "FirebaseModel"
+    private val recordList = ArrayList<MoodItem>()
+    private var isDatabaseInitialized = false
 
 
     suspend fun loginWithEmailAndPassword(email:String,password:String):Pair<Boolean,String>{
@@ -152,11 +156,50 @@ object FirebaseModel {
         }
 
     }
+     fun getTheDatabase() {
+        if(isDatabaseInitialized){
+            return
+        }
+        val UID = firebaseAuth.currentUser?.uid
+        val year = calender.get(Calendar.YEAR)
+        val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())
+        val month = monthFormat.format(calender.time)
+
+        val refPath = "/mental_health_app/UserRecords/$UID/MoodRecords/$month$year"
+        val recordRef = Firebase.firestore.collection(refPath)
+
+
+        recordRef.whereEqualTo("month", month)
+            .whereEqualTo("year", year)
+            .orderBy("date", Query.Direction.ASCENDING)
+            .addSnapshotListener() { snapShot, e ->
+                e?.let {
+                    Log.d(TAG, it.message.toString())
+                    return@addSnapshotListener
+                }
+
+                snapShot?.let {
+                   recordList.clear()
+                    for (doc in it) {
+                        val moodItem = doc.toObject(MoodItem::class.java)
+                        recordList.add(moodItem)
+                    }
+                    recordLiveData.value = recordList
+
+                }
+            }
+         isDatabaseInitialized =true
+    }
+
+    fun getRecordLiveData():LiveData<ArrayList<MoodItem>>{
+        return recordLiveData
+    }
 
 
 
 
     suspend fun getTodaysMood():Pair<Boolean,MoodItem?>{
+
         val UID = firebaseAuth.currentUser?.uid
         val year= calender.get( Calendar.YEAR)
         val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())

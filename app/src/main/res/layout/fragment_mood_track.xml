@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="July, 2021"
-            android:textSize="20sp"
+            android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
             app:layout_constraintEnd_toStartOf="@+id/guideline21"
@@ -214,7 +214,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.66" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline26"
@@ -228,7 +228,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.01" />
+            app:layout_constraintGuide_percent="0.05" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
